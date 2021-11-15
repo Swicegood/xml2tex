@@ -1,0 +1,31 @@
+
+(use xmltex.latex)
+(define-tag http://www.tei-c.org/ns/1.0:text (make-latex-env 'document))    
+(define-tag http://www.tei-c.org/ns/1.0:teiHeader (ignore))
+(define-tag http://www.tei-c.org/ns/1.0:chapter   ; if the node is this name ...
+  (define-rule 
+    "\\chapter*{"         ; put this at the beginning ...
+    trim         ; its text nodes should be ... 
+    "}"))  ; put this at the ending.
+(define-tag http://www.tei-c.org/ns/1.0:section   ; 
+  (define-rule 
+    "\\section*{"        
+    trim         
+    "}")) 
+(define-tag http://www.tei-c.org/ns/1.0:subsection   
+  (define-rule 
+    "\\subsection"    
+    trim       
+    ""))  
+(define-tag http://www.tei-c.org/ns/1.0:p   
+  (define-rule 
+    "\n"        
+    trim        
+    ""))  
+
+(define-tag http://www.tei-c.org/ns/1.0:note  
+  (define-rule 
+    "\\footnote{"         
+    trim        
+    "}"))  
+
