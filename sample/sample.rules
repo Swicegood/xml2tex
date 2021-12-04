@@ -1,4 +1,3 @@
-;; rules for sample.xml in the same dir.
 
 (use sxml.sxpath)
 (use sxml.tools)

@@ -1,6 +1,24 @@
-
+(use sxml.sxpath)
+(use sxml.tools)
+(use text.tree)
+(use xmltex.cnvr)
 (use xmltex.latex)
-(define-tag http://www.tei-c.org/ns/1.0:text (make-latex-env 'document))    
+
+(define-simple-rules through
+  *TOP*)
+
+(define xml-entities
+  (list
+   '(amp  . "&")
+   '(ouml . "\\\"o")
+   '(lt   . "<")
+   '(gt   . ">")
+   ))
+
+(define-simple-rules through
+  *TOP*)
+
+;; (define-tag http://www.tei-c.org/ns/1.0:text (make-latex-env 'document))    
 (define-tag http://www.tei-c.org/ns/1.0:teiHeader (ignore))
 (define-tag http://www.tei-c.org/ns/1.0:chapter   ; if the node is this name ...
   (define-rule 
@@ -26,6 +44,85 @@
 (define-tag http://www.tei-c.org/ns/1.0:note  
   (define-rule 
     "\\footnote{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:foreign  
+  (define-rule 
+    "\\foreign{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:bibl  
+  (define-rule 
+    "\\cite{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:attribtitle
+  (define-rule 
+    "\\qattribute["         
+    trim        
+    "]"))  
+(define-tag http://www.tei-c.org/ns/1.0:attribauthor
+  (define-rule 
+    "{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:ignore (ignore))
+
+(define-tag http://www.tei-c.org/ns/1.0:quote
+  (define-rule 
+    "\\begin{quotation}"         
+    trim        
+    "\\end{quotation}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:gitaref
+  (define-rule 
+    "\\gitaref"         
+    trim        
+    ""))
+
+(define-tag http://www.tei-c.org/ns/1.0:gitachref
+  (define-rule 
+    "{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:gitavref
+  (define-rule 
+    "{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:bhagavatamref
+  (define-rule 
+    "\\bhagavatamref"         
+    trim        
+    ""))  
+
+(define-tag http://www.tei-c.org/ns/1.0:bhagavatamcantoref
+  (define-rule 
+    "{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:bhagavatamchref
+  (define-rule 
+    "{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:bhagavatamvref
+  (define-rule 
+    "{"         
+    trim        
+    "}"))  
+
+(define-tag http://www.tei-c.org/ns/1.0:hyperref
+  (define-rule 
+    "\\url{"         
     trim        
     "}"))  
 
